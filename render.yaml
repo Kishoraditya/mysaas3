@@ -17,7 +17,7 @@ services:
       - key: WEB_CONCURRENCY
         value: 4
     buildCommand: "./build.sh"
-    startCommand: "gunicorn mysite.wsgi:application"
+    startCommand: "gunicorn mysaas3.wsgi:application"
 
   - type: worker
     name: mysaas3-worker
