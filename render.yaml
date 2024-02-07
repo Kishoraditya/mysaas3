@@ -6,6 +6,7 @@ databases:
 services:
   - type: web
     name: mysaas3
+    runtime: python
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,6 +21,7 @@ services:
 
   - type: worker
     name: mysaas3-worker
+    runtime: python
     envVars:
       - key: DATABASE_URL
         fromDatabase:
