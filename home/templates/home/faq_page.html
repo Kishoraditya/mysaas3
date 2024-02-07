@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar template_tags %}
+
+
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+
+  {% for block in page.collapsible_sections %}
+    <div class="collapsible-section">
+      <h2>{{ block.value.title }}</h2>
+      <ul>
+        {% for faq in block.value.faqs %}
+          <li>
+            <strong>{{ faq.value.question }}</strong><br>
+            {{ faq.value.answer }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+
+  <div class="searchable-faqs">
+    {{ page.searchable_faq }}
+  </div>
+{% endblock %}

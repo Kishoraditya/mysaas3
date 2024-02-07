@@ -1,0 +1,116 @@
+{% load static wagtailcore_tags wagtailuserbar template_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mysaas3.css' %}">
+
+        {% block extra_css %}
+        <style>
+            body {
+                background-color: {{ site_settings.background_color }};
+                color: {% contrast_text_color site_settings.background_color %};
+                font-family: '{{ site_settings.font_body }}', sans-serif;
+            }
+    
+            h1, h2, h3, h4, h5, h6 {
+                color: {{ site_settings.primary_color }};
+                font-family: '{{ site_settings.font_header }}', sans-serif;
+            }
+    
+            /* Add any additional styling based on color styles */
+        </style>
+        {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
+
+        <ul>
+            <li><a href="{% url 'socialapp:report' %}">Report</a></li>
+            <li><a href="{% url 'socialapp:connect_instagram' %}">Connect to Instagram</a></li>
+            <li><a href="{% url 'socialapp:connect_socials' %}">Connect to Socials</a></li>
+            <!-- Add other navigation links as needed -->
+          </ul>
+
+        {% block content %}
+        
+        <!-- Call-to-Action Button Styles -->
+            <style>
+                .cta-button {
+                    background-color: {{ call_to_action_block.background_color }};
+                    color: {% contrast_text_color call_to_action_block.background_color %};
+                }
+            </style>
+
+            <!-- Feature Block Styles -->
+            <style>
+                .feature-block {
+                    border: 2px solid {{ site_settings.primary_color }};
+                    /* Add other styling as needed */
+                }
+            </style>
+
+            <!-- Demo Block Styles -->
+            <style>
+                .demo-block img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            </style>
+
+            <!-- Testimonial Block Styles -->
+            <style>
+                .testimonial-block img {
+                    border-radius: 50%;
+                }
+            </style>
+
+            <!-- Pricing Plan Block Styles -->
+            <style>
+                .pricing-plan {
+                    background-color: {{ site_settings.secondary_color }};
+                    color: {% contrast_text_color site_settings.secondary_color %};
+                }
+            </style>
+
+            <!-- FAQ Section Block Styles -->
+            <style>
+                .faq-section {
+                    background-color: {{ site_settings.accent_color }};
+                    color: {% contrast_text_color site_settings.accent_color %};
+                }
+            </style>
+
+        {% endblock %}
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/mysaas3.js' %}"></script>
+
+        {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>

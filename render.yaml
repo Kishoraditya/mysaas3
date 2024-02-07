@@ -1,0 +1,29 @@
+databases:
+  - name: db_saas3
+    databaseName: mysite
+    user: usr_saas3
+
+services:
+  - type: web
+    name: mysaas3
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: db_saas3
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mysite.wsgi:application"
+
+  - type: worker
+    name: mysaas3-worker
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: db_saas3
+          property: connectionString
+    buildCommand: "./build.sh"
+    startCommand: "celery -A mysite worker -l info"

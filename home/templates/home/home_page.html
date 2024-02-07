@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar template_tags %}
+
+
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <!-- Render the Hero Section -->
+  <section class="hero">
+    {% for block in page.hero_section %}
+      {% if block.block_type == 'call_to_action' %}
+        <a href="{{ block.value.url }}" class="cta-button">{{ block.value.text }}</a>
+      {% elif block.block_type == 'feature' %}
+        <div class="feature">
+          <i class="{{ block.value.icon }}"></i>
+          <h2>{{ block.value.title }}</h2>
+          <p>{{ block.value.description }}</p>
+          <a href="{{ block.value.call_to_action.url }}" class="cta-button">{{ block.value.call_to_action.text }}</a>
+        </div>
+      {% elif block.block_type == 'demo' %}
+        <div class="demo">
+          <img src="{{ block.value.image.url }}" alt="Demo Image">
+          <p>{{ block.value.description }}</p>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </section>
+
+  <!-- Render Sticky Navigation Menu -->
+  <nav class="sticky-menu">
+    {% for block in page.sticky_navigation_menu %}
+      <a href="{{ block.value.url }}">{{ block.value.text }}</a>
+    {% endfor %}
+  </nav>
+
+  <!-- Add other sections as needed -->
+{% endblock %}
+

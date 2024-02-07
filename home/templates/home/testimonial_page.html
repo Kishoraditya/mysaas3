@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar template_tags %}
+
+
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.author_name }}, {{ page.position }}</p>
+  <img src="{{ page.image.url }}" alt="{{ page.author_name }}">
+  <div class="testimonial-text">
+    {{ page.testimonial_text|richtext }}
+  </div>
+{% endblock %}

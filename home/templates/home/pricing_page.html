@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar template_tags %}
+
+
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+
+  {% for block in page.pricing_plans %}
+    <div class="pricing-plan">
+      <h2>{{ block.value.name }}</h2>
+      <p>${{ block.value.price }}</p>
+      <ul>
+        {% for feature in block.value.features %}
+          <li>{{ feature }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+
+  <div class="feature-comparison-table">
+    {{ page.feature_comparison_table|richtext }}
+  </div>
+{% endblock %}

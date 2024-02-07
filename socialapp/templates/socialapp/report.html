@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Report</h2>
+  {% if instagram_data %}
+    <h3>Instagram Account Data</h3>
+    <p>ID: {{ instagram_data.user.id }}</p>
+    <p>Username: {{ instagram_data.user.username }}</p>
+    <p>Account Type: {{ instagram_data.account_type }}</p>
+    <p>Media Count: {{ instagram_data.media_count }}</p>
+  {% else %}
+    <p>Connect to Instagram to see account data.</p>
+    <a href="{% url 'socialapp:connect_instagram' %}">Connect to Instagram</a>
+  {% endif %}
+{% endblock %}
