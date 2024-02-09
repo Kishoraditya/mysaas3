@@ -27,7 +27,7 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
-    path('admin/snippets/wagtail_customization/', include(wagtailsettings_urls)),
+    #path('admin/snippets/wagtail_customization/', include('wagtail_customization.urls')),
     
     
 ]

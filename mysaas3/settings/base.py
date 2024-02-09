@@ -68,7 +68,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    #"whitenoise.middleware.WhiteNoiseMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -122,15 +122,26 @@ WSGI_APPLICATION = "mysaas3.wsgi.application"
 #        'PORT': '5432',
 #    }
 #}
-import dj_database_url
+#import dj_database_url
+
+#DATABASES = {
+#    'default': dj_database_url.config(
+#        # Feel free to alter this value to suit your needs.
+#        default='postgresql://postgres:postgres@localhost:5432/mysaas3',
+#        conn_max_age=600,
+#       conn_health_checks=True,
+#    )
+#}
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/mysaas3',
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_saas3',
+        'USER': 'usr_saas3',
+        'PASSWORD': 'q',
+        'HOST': 'db',  # This should match the service name in docker-compose.yml
+        'PORT': '5432',  # Default PostgreSQL port
+    }
 }
 
 # Password validation
@@ -237,16 +248,17 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # settings.py
-ALLOWED_HOSTS = ['https://127.0.0.1:8000/', 'localhost', '127.0.0.1']
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_HOSTS =[
-    "http://127.0.0.1:8000",
-    "http://localhost:8000",
-    "https://127.0.0.1:8000/",
-]
-CSRF_TRUSTED_ORIGINS = [
-    'https://127.0.0.1:8000/',  # Add your ngrok domain here
-]
+#ALLOWED_HOSTS = ['https://127.0.0.1:8000/', 'localhost', '127.0.0.1']
+#CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOWED_HOSTS =[
+#    "http://127.0.0.1:8000",
+#    "http://localhost:8000",
+#    "https://127.0.0.1:8000/",
+#]
+#CSRF_TRUSTED_ORIGINS = [
+#    'https://127.0.0.1:8000/',  # Add your ngrok domain here
+#]
 
-SECURE_SSL_REDIRECT = False
-SECURE_HSTS_SECONDS = 31536000
+#SECURE_SSL_REDIRECT = False
+#SECURE_HSTS_SECONDS = 31536000
+
